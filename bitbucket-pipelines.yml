@@ -1,0 +1,26 @@
+image: atlassian/default-image:2
+
+pipelines:
+  branches:
+    staging:
+    - step:
+        script:
+        - pipe: atlassian/aws-s3-deploy:0.3.7
+          variables:
+            AWS_ACCESS_KEY_ID: $STAGING_AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY: $STAGING_AWS_SECRET_ACCESS_KEY
+            AWS_DEFAULT_REGION: 'us-east-1'
+            S3_BUCKET: 'assets-staging.padsquad.com/creativeTags'
+            LOCAL_PATH: 'dist'
+            ACL: 'public-read'
+    production:
+      - step:
+          script:
+          - pipe: atlassian/aws-s3-deploy:0.3.7
+            variables:
+              AWS_ACCESS_KEY_ID: $STAGING_AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $STAGING_AWS_SECRET_ACCESS_KEY
+              AWS_DEFAULT_REGION: 'us-east-1'
+              S3_BUCKET: 'asset.padsquad.com/creativeTags'
+              LOCAL_PATH: 'dist'
+              ACL: 'public-read'
