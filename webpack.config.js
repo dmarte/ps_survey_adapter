@@ -3,15 +3,9 @@ module.exports = {
   mode: 'production',
   devtool: "source-map",
   entry: {
-    PadSquad: ['./src/PSDom', './src/PSToolKit'],
-    PSBackToSurvey: {
-      dependOn: 'PadSquad',
+    surveyAdapter: {
       import: './src/PSBackToSurvey/PSBackToSurvey.js',
-      filename: '[name].min.js',
-    },
-    "PSBackToSurvey.bundle": {
-      import: './src/PSBackToSurvey/PSBackToSurvey.js',
-      filename: '[name].min.js',
+      filename: '[name].js',
     },
   },
   output: {
