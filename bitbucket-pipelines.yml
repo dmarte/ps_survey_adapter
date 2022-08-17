@@ -11,7 +11,7 @@ pipelines:
             AWS_SECRET_ACCESS_KEY: $STAGING_AWS_SECRET_ACCESS_KEY
             AWS_DEFAULT_REGION: 'us-east-1'
             S3_BUCKET: 'assets-staging.padsquad.com/utils'
-            LOCAL_PATH: 'dist'
+            LOCAL_PATH: 'src'
             ACL: 'public-read'
     production:
       - step:

@@ -5,8 +5,8 @@
  * The purpose of this plugin script is to render a button below the creative to let those users
  * that comes from a survey return back and continue with they survey.
  */
-import { PSToolKit } from '../PSToolKit.js';
-import { PSDom } from '../PSDom.js';
+import { PSToolKit } from './PSToolKit.js';
+import { PSDom } from './PSDom.js';
 
 ((w) => {
   /**

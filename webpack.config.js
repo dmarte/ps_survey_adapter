@@ -4,7 +4,7 @@ module.exports = {
   devtool: "source-map",
   entry: {
     surveyAdapter: {
-      import: './src/PSBackToSurvey/PSBackToSurvey.js',
+      import: './src/SurveyAdapter',
       filename: '[name].js',
     },
   },
