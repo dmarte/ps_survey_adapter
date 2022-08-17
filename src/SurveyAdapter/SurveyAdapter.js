@@ -10,11 +10,11 @@ import { PSDom } from '../PSDom.js';
 
 ((w) => {
   /**
-   * Initialize the PSBackToSurvey script.
+   * Initialize the SurveyAdapter script.
    *
    * @param {SimpliTag} SimpliTag The SimpliTag main object.
    */
-  const PSBackToSurvey = function (SimpliTag) {
+  const SurveyAdapter = function (SimpliTag) {
     this.$config = {
       params: {},
       url: '',
@@ -26,7 +26,7 @@ import { PSDom } from '../PSDom.js';
      *
      * @param {string} originalKeyName The name of the quey string param in the current window.top
      * @param {string} targetKeyName The placeholder key name to hold the value.
-     * @returns {PSBackToSurvey}
+     * @returns {SurveyAdapter}
      */
     this.take = function (originalKeyName, targetKeyName = '') {
       if (!targetKeyName) {
@@ -67,7 +67,7 @@ import { PSDom } from '../PSDom.js';
      * that could be used by the plugin and replaced with its final values at the end.
      *
      * @param {string} targetUrl The URL where to target when user click on the handler button.
-     * @returns {PSBackToSurvey}
+     * @returns {SurveyAdapter}
      */
     this.url = function (targetUrl) {
       this.$config.url = targetUrl;
@@ -78,15 +78,15 @@ import { PSDom } from '../PSDom.js';
      * Initialize the plugin in the browser.
      *
      * @param {string} id The ID of the script with the meta data.
-     * @returns {PSBackToSurvey}
+     * @returns {SurveyAdapter}
      */
-    this.start = function (id = '#PSBackToSurvey') {
-      console.log('PSBackToSurvey: START');
+    this.start = function (id = '#SurveyAdapter') {
+      console.log('SurveyAdapter: START');
 
       PSDom
         .when(id)
         .then((tag) => {
-          console.log('PSBackToSurvey: TAG READY');
+          console.log('SurveyAdapter: TAG READY');
           // [STEP 1] Draw the button to be added
           const button = PSDom.draw(`
                         <button 
@@ -111,14 +111,14 @@ import { PSDom } from '../PSDom.js';
                     `, {
             hide() {
 
-              console.log('PSBackToSurvey: HIDE');
+              console.log('SurveyAdapter: HIDE');
 
               button.style.display = 'none';
 
             },
             show() {
 
-              console.log('PSBackToSurvey: DISPLAYED');
+              console.log('SurveyAdapter: DISPLAYED');
 
               const placement = SimpliTag.vplacement();
 
@@ -178,18 +178,18 @@ import { PSDom } from '../PSDom.js';
 
     if (typeof simpli === 'undefined') {
       throw new TypeError(
-        'PSBackToSurvey rely on Simpli Tag script. PLease include the required script first.',
+        'SurveyAdapter rely on Simpli Tag script. PLease include the required script first.',
       );
     }
 
     if(!simpli?.runtime()?.environment?.isFriendlyIframe) {
-      console.warn('PSBackToSurvey is only available in friendly iframe.');
+      console.warn('SurveyAdapter is only available in friendly iframe.');
       return this;
     }
 
-    console.log('PSBackToSurvey: INIT');
+    console.log('SurveyAdapter: INIT');
 
-    w.PSBackToSurvey = (new PSBackToSurvey(simpli)).start();
+    w.PSBackToSurvey = (new SurveyAdapter(simpli)).start();
   };
 
 })(window);

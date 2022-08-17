@@ -10,7 +10,7 @@ pipelines:
             AWS_ACCESS_KEY_ID: $STAGING_AWS_ACCESS_KEY_ID
             AWS_SECRET_ACCESS_KEY: $STAGING_AWS_SECRET_ACCESS_KEY
             AWS_DEFAULT_REGION: 'us-east-1'
-            S3_BUCKET: 'assets-staging.padsquad.com/creativeTags'
+            S3_BUCKET: 'assets-staging.padsquad.com/utils'
             LOCAL_PATH: 'dist'
             ACL: 'public-read'
     production:
@@ -21,6 +21,6 @@ pipelines:
               AWS_ACCESS_KEY_ID: $STAGING_AWS_ACCESS_KEY_ID
               AWS_SECRET_ACCESS_KEY: $STAGING_AWS_SECRET_ACCESS_KEY
               AWS_DEFAULT_REGION: 'us-east-1'
-              S3_BUCKET: 'asset.padsquad.com/creativeTags'
+              S3_BUCKET: 'asset.padsquad.com/utils'
               LOCAL_PATH: 'dist'
               ACL: 'public-read'
