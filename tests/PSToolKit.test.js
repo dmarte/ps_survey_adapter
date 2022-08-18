@@ -3,8 +3,12 @@ import {PSToolKit} from '../src/PSToolKit.js'
 describe('PSToolKit.js', () => {
 
     it('ToolKit.placeholder.write( text, placeholders)', () => {
-        const value = PSToolKit.placeholder.write('Hello {name} {name}', { name: 'World' })
+        // Test repeated holder, should replace all coincidences
+        let value = PSToolKit.placeholder.write('Hello {name} {name}', { name: 'World' })
         expect(value).toEqual('Hello World World')
+        // Should replace just the matching coincidences
+        value = PSToolKit.placeholder.write('{greetings} on board {name}!', { greetings: 'Welcome', name: 'John'})
+        expect(value).toEqual('Welcome on board John!')
     })
 
     it('ToolKit.placeholder.transform(map, values)', () => {
