@@ -147,9 +147,14 @@ import { PSDom } from './PSDom.js';
           button.addEventListener('click', () => {
             window.open(this.getUrl(), '_blank');
           });
+
+          // [STEP 5] - Draw in the wrapper
+          PSToolKit.insertAfter(SimpliTag.vplacement().wrapper.firstChild, button);
+
           // When at first load, if the creative is not visible, add a watcher event
           // to know when the creative is visible and then show the button.
           if (!(SimpliTag?.runtime()?.creative?.mainCreativeViewed ?? false)) {
+            
             SimpliTag.listeners.add(
               'onStandardEventTracked',
               function (event) {
@@ -158,14 +163,12 @@ import { PSDom } from './PSDom.js';
                 }
               },
             );
+
+            return this;
           }
           // If instead the creative is already visible, show the button ASAP.
-          else {
-            button.show();
-          }
+          button.show();
 
-          // [STEP 5] - Draw in the wrapper
-          PSToolKit.insertAfter(SimpliTag.vplacement().wrapper.firstChild, button);
         });
 
       return this;
@@ -189,7 +192,7 @@ import { PSDom } from './PSDom.js';
 
     console.log('SurveyAdapter: INIT');
 
-    w.PSBackToSurvey = (new SurveyAdapter(simpli)).start();
+    w.SurveyAdapter = (new SurveyAdapter(simpli)).start();
   };
 
 })(window);
