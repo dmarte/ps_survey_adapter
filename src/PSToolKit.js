@@ -67,7 +67,7 @@ const PSToolKit = {
       return (
         String(characters)
           .match(/({[a-zA-Z_-]+})/g)
-          .map((key) => key.replace(/([{}])/gi, '')) ?? []
+          ?.map((key) => key.replace(/([{}])/gi, '')) ?? []
       );
     },
 

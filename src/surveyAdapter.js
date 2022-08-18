@@ -5,8 +5,8 @@
  * The purpose of this plugin script is to render a button below the creative to let those users
  * that comes from a survey return back and continue with they survey.
  */
-import { PSToolKit } from './PSToolKit.js';
-import { PSDom } from './PSDom.js';
+import { PSToolKit } from "./PSToolKit.js";
+import { PSDom } from "./PSDom.js";
 
 ((w) => {
   /**
@@ -17,7 +17,7 @@ import { PSDom } from './PSDom.js';
   const SurveyAdapter = function (SimpliTag) {
     this.$config = {
       params: {},
-      url: '',
+      url: "",
     };
 
     /**
@@ -28,7 +28,7 @@ import { PSDom } from './PSDom.js';
      * @param {string} targetKeyName The placeholder key name to hold the value.
      * @returns {SurveyAdapter}
      */
-    this.take = function (originalKeyName, targetKeyName = '') {
+    this.take = function (originalKeyName, targetKeyName = "") {
       if (!targetKeyName) {
         targetKeyName = originalKeyName;
       }
@@ -44,20 +44,26 @@ import { PSDom } from './PSDom.js';
      *
      * @returns {Object<string, string>}
      */
-    this.getParamsToUse = () => PSToolKit.queryString.only(Object.keys(this.$config.params));
+    this.getParamsToUse = () =>
+      PSToolKit.queryString.only(Object.keys(this.$config.params));
 
     /**
      * Get the parameters to be set in the URL.
      *
      * @returns {Object<string, string>}
      */
-    this.getParamsToBeSet = () => PSToolKit.placeholder.transform(this.$config.params, this.getParamsToUse());
+    this.getParamsToBeSet = () =>
+      PSToolKit.placeholder.transform(
+        this.$config.params,
+        this.getParamsToUse()
+      );
 
     /**
      * Return the Final URL that will be opened.
      * @returns {string}
      */
-    this.getUrl = () => PSToolKit.placeholder.write(this.$config.url, this.getParamsToBeSet());
+    this.getUrl = () =>
+      PSToolKit.placeholder.write(this.$config.url, this.getParamsToBeSet());
 
     /**
      * This method register a handler to open a new (_blank) window with the given URL
@@ -80,15 +86,14 @@ import { PSDom } from './PSDom.js';
      * @param {string} id The ID of the script with the meta data.
      * @returns {SurveyAdapter}
      */
-    this.start = function (id = '#SurveyAdapter') {
-      console.log('SurveyAdapter: START');
+    this.start = function (id = "#SurveyAdapter") {
+      console.log("SurveyAdapter: START");
 
-      PSDom
-        .when(id)
-        .then((tag) => {
-          console.log('SurveyAdapter: TAG READY');
-          // [STEP 1] Draw the button to be added
-          const button = PSDom.draw(`
+      PSDom.when(id).then((tag) => {
+        console.log("SurveyAdapter: TAG READY");
+        // [STEP 1] Draw the button to be added
+        const button = PSDom.draw(
+          `
                         <button 
                             type="button"
                             style="
@@ -106,70 +111,68 @@ import { PSDom } from './PSDom.js';
                                 cursor: pointer;
                                 "
                         >
-                            ${tag.dataset.text ?? 'Return to Survey'}
+                            ${tag.dataset.text ?? "Return to Survey"}
                         </button>
-                    `, {
-            hide() {
-
-              console.log('SurveyAdapter: HIDE');
-
-              button.style.display = 'none';
-
-            },
+                    `,
+          {
             show() {
-
-              console.log('SurveyAdapter: DISPLAYED');
+              console.log("SurveyAdapter: DISPLAYED");
 
               const placement = SimpliTag.vplacement();
 
-              const airInitHolder = placement.wrapper.firstChild
+              const airInitHolder = placement.wrapper.firstChild;
 
-              const adBreak = placement.wrapper.closest('.adBreak')
+              const adBreak = placement.wrapper.closest(".adBreak");
 
-              let unit = PSDom.outerHeight(airInitHolder) + PSDom.outerHeight(button)
+              let unit =
+                PSDom.outerHeight(airInitHolder) + PSDom.outerHeight(button);
 
-              adBreak.style.height = `${unit}px`
+              adBreak.style.height = `${unit}px`;
 
-              button.style.display = 'block';
+              button.style.display = "block";
             },
-          });
-
-          // [STEP 2] Auto register placeholders
-          PSToolKit
-            .placeholder
-            .keys(tag.dataset.url)
-            .forEach((key) => this.take(key));
-
-          // [STEP 3] Auto register the target URL
-          this.url(tag.dataset.url);
-
-          // [STEP 4] Bind required events
-          button.addEventListener('click', () => {
-            window.open(this.getUrl(), '_blank');
-          });
-
-          // [STEP 5] - Draw in the wrapper
-          PSToolKit.insertAfter(SimpliTag.vplacement().wrapper.firstChild, button);
-
-          // When at first load, if the creative is not visible, add a watcher event
-          // to know when the creative is visible and then show the button.
-          if (!(SimpliTag?.runtime()?.creative?.mainCreativeViewed ?? false)) {
-            
-            SimpliTag.listeners.add(
-              'onStandardEventTracked',
-              function (event) {
-                if (event.label === 'main creative viewed') {
-                  button.show();
-                }
-              },
-            );
-
-            return this;
           }
-          // If instead the creative is already visible, show the button ASAP.
-          button.show();
+        );
 
+        if (!tag.dataset.target) {
+          throw new TypeError(
+            'SurveyAdapter you need to specify the "data-target" attribute in the script tag to use this adapter.'
+          );
+        }
+
+        const path = String(tag?.dataset?.target ?? "");
+        // [STEP 2] Auto register placeholders
+        PSToolKit.placeholder.keys(path).forEach((key) => this.take(key));
+
+        // [STEP 3] Auto register the target URL
+        this.url(path);
+
+        // [STEP 4] Bind required events
+        button.addEventListener("click", () => {
+          window.open(this.getUrl(), "_blank");
         });
+
+        // [STEP 5] - Draw in the wrapper
+        PSToolKit.insertAfter(
+          SimpliTag.vplacement().wrapper.firstChild,
+          button
+        );
+
+        // [STEP 6] - Show when ready
+        // When at first load, if the creative is not visible, add a watcher event
+        // to know when the creative is visible and then show the button.
+        if (!(SimpliTag?.runtime()?.creative?.mainCreativeViewed ?? false)) {
+          SimpliTag.listeners.add("onStandardEventTracked", function (event) {
+            if (event.label === "main creative viewed") {
+              button.show();
+            }
+          });
+
+          return this;
+        }
+        // If instead the creative is already visible, show the button ASAP.
+        button.show();
+      });
 
       return this;
     };
@@ -179,20 +182,19 @@ import { PSDom } from './PSDom.js';
     /** @type {SimpliTag} */
     const simpli = w.__simpli;
 
-    if (typeof simpli === 'undefined') {
+    if (typeof simpli === "undefined") {
       throw new TypeError(
-        'SurveyAdapter rely on Simpli Tag script. PLease include the required script first.',
+        "SurveyAdapter rely on Simpli Tag script. PLease include the required script first."
       );
     }
 
-    if(!simpli?.runtime()?.environment?.isFriendlyIframe) {
-      console.warn('SurveyAdapter is only available in friendly iframe.');
+    if (!simpli?.runtime()?.environment?.isFriendlyIframe) {
+      console.warn("SurveyAdapter is only available in friendly iframe.");
       return this;
     }
 
-    console.log('SurveyAdapter: INIT');
+    console.log("SurveyAdapter: INIT");
 
-    w.SurveyAdapter = (new SurveyAdapter(simpli)).start();
+    w.SurveyAdapter = new SurveyAdapter(simpli).start();
   };
-
 })(window);
