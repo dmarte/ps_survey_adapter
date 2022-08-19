@@ -5,7 +5,7 @@ const PSToolKit = {
      * @returns {Object<string, string>}
      */
     only(keys) {
-      const params = new URLSearchParams(window.top.location.search ?? '');
+      const params = new URLSearchParams(window.top.location.search ?? "");
       return keys.reduce((collection, current) => {
         collection[current] = params.get(current) ?? null;
         return collection;
@@ -13,7 +13,6 @@ const PSToolKit = {
     },
   },
   placeholder: {
-
     /**
      * Set the placeholders in a given string.
      *
@@ -26,9 +25,14 @@ const PSToolKit = {
      * @returns {string} The string with placeholders.
      */
     write(text, placeholders = {}) {
-      return Object
-        .keys(placeholders)
-        ?.reduce((t, key) => String(t).replace(new RegExp(`{${key}}`,'g'), placeholders[key] ?? ''), text);
+      return Object.keys(placeholders)?.reduce(
+        (t, key) =>
+          String(t).replace(
+            new RegExp(`{${key}}`, "g"),
+            placeholders[key] ?? ""
+          ),
+        text
+      );
     },
 
     /**
@@ -43,14 +47,12 @@ const PSToolKit = {
      * @returns {Object<string,string>}
      */
     transform(map, values) {
-      return Object
-        .keys(map)
-        .reduce((output, key) => {
-          if (values[key]) {
-            output[map[key]] = values[key];
-          }
-          return output;
-        }, {});
+      return Object.keys(map).reduce((output, key) => {
+        if (values[key]) {
+          output[map[key]] = values[key];
+        }
+        return output;
+      }, {});
     },
 
     /**
@@ -64,11 +66,13 @@ const PSToolKit = {
      * @returns {string[]}
      */
     keys(characters) {
-      return (
-        String(characters)
-          .match(/({[a-zA-Z_-]+})/g)
-          ?.map((key) => key.replace(/([{}])/gi, '')) ?? []
-      );
+      const match = String(characters).match(/({[a-zA-Z_-]+})/g);
+
+      if (!Array.isArray(match)) {
+        return [];
+      }
+
+      return match?.map((key) => key.replace(/([{}])/gi, "")) ?? [];
     },
 
     /**
@@ -98,7 +102,7 @@ const PSToolKit = {
   insertAfter(existingNode, nodeToAdd) {
     return existingNode.parentNode.insertBefore(
       nodeToAdd,
-      existingNode.nextSibling,
+      existingNode.nextSibling
     );
   },
 };
