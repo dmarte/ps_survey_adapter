@@ -155,6 +155,8 @@ import { PSDom } from './PSDom.js';
           },
         );
 
+        console.dir(PSDom.enabled(tag, 'floating'));
+
         if (!tag.dataset.target) {
           throw new TypeError(
             'SurveyAdapter you need to specify the "data-target" attribute in the script tag to use this adapter.',
@@ -172,7 +174,7 @@ import { PSDom } from './PSDom.js';
         button.addEventListener('click', () => {
           window.open(this.getUrl(), '_blank');
         });
-console.dir(button);
+
         // [STEP 5] - Draw in the wrapper
         if (PSDom.enabled(tag, 'floating')) {
           button.renderOnFloating();
