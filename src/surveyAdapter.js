@@ -91,6 +91,7 @@ import { PSDom } from './PSDom.js';
 
       PSDom.when(id).then((tag) => {
         console.log('SurveyAdapter: TAG READY');
+        console.dir('SurveyAdapter: IS FLOATING?', PSDom.enabled(tag, 'floating'));
         // [STEP 1] Draw the button to be added
         const button = PSDom.draw(
           `
@@ -107,7 +108,7 @@ import { PSDom } from './PSDom.js';
                                 border-radius: 7px;
                                 font-size: 22px;
                                 font-weight: bold;
-                                font-family: sans-serif
+                                font-family: sans-serif;
                                 cursor: pointer;
                                 "
                         >
@@ -141,6 +142,11 @@ import { PSDom } from './PSDom.js';
 
               console.log('SurveyAdapter: DISPLAYED ON FLOATING');
 
+              button.style.position = 'fixed'
+              button.style.top = '-35px'
+              button.style.left = 'calc(50% - 50%)'
+              button.style.boxShadow = '1px 5px 8px rgb(0 0 0 / 44%)'
+              button.style.display = 'block'
             },
             show() {
 
@@ -155,7 +161,7 @@ import { PSDom } from './PSDom.js';
           },
         );
 
-        console.dir(PSDom.enabled(tag, 'floating'));
+
 
         if (!tag.dataset.target) {
           throw new TypeError(
