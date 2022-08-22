@@ -31,6 +31,33 @@ describe('PSDom.js', () => {
       .mockImplementation(selector => dom.querySelector(selector));
   });
 
+  it('Verify boolean attributes on elements. / PSDom.enable(element, attribute)', () => {
+    expect(
+      PSDom.enabled(
+        PSDom.draw(`<button data-active="true">Button</button>`),
+        'active'
+      )
+    ).toEqual(true)
+    expect(
+      PSDom.enabled(
+        PSDom.draw(`<button data-active="1">Button</button>`),
+        'active'
+      )
+    ).toEqual(true)
+    expect(
+      PSDom.enabled(
+        PSDom.draw(`<button data-active="0">Button</button>`),
+        'active'
+      )
+    ).toEqual(false)
+    expect(
+      PSDom.enabled(
+        PSDom.draw(`<button>Button</button>`),
+        'active'
+      )
+    ).toEqual(false)
+  })
+
   it('PSDom.find(selector)', () => {
     expect(PSDom.find('#handler')).toBeInstanceOf(HTMLElement);
     expect(PSDom.find('#handler').tagName.toLowerCase()).toEqual('div');

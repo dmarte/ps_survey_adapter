@@ -1,5 +1,18 @@
 export const PSDom = {
   /**
+   * Verify the boolean form of a given data attribute.
+   * @example PSDom.enabled(PSDom.draw(`<button data-active="true">Button</button>`), 'active')
+   * @param {HTMLElement} element
+   * @param {string} attribute
+   * @return {boolean}
+   */
+  enabled(element, attribute) {
+    if(!element.dataset[attribute]) {
+      return false
+    }
+    return element.dataset[attribute] === 'true' || element.dataset[attribute] === '1'
+  },
+  /**
    * Get the element full height in pixels.
    * (including margin, padding and border)
    *
