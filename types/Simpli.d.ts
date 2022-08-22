@@ -19,7 +19,12 @@ declare enum SimpliTagListenerEventLabel {
     creativeExposeTime = 'creative exposure time',
     creativeEngagement = 'creative engagement',
     creativeRendered = 'creative rendered',
-    mainCreativeViewed ='main creative viewed'
+    mainCreativeViewed ='main creative viewed',
+    creativeRequested = 'creative requested',
+    creativeLoaded = 'creative loaded',
+    creativeDismissed = 'creative dismissed',
+    creativeExposureTime = 'creative exposure time',
+    impressionViewed = 'impression viewed',
 }
 
 declare type SimpliTagListenerEvent = {

@@ -196,8 +196,14 @@ import { PSDom } from './PSDom.js';
           console.log('SurveyAdapter: mainCreativeViewed', SimpliTag?.runtime()?.creative?.mainCreativeViewed)
 
           SimpliTag.listeners.add('onStandardEventTracked', function (event) {
+            const floating = PSDom.enabled(tag, 'floating')
             console.log('SurveyAdapter: ', event.label)
-            if (event.label === 'main creative viewed') {
+            if (
+              // On not floating Scrollers / Tiles
+              (event.label === 'main creative viewed' && !floating) ||
+              // On on floating Adhesion
+              (event.label === 'creative rendered' && floating)
+            ) {
               button.show();
             }
           });
