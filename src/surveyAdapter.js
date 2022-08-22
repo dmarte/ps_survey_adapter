@@ -91,7 +91,7 @@ import { PSDom } from './PSDom.js';
 
       PSDom.when(id).then((tag) => {
         console.log('SurveyAdapter: TAG READY');
-        console.dir('SurveyAdapter: IS FLOATING?', PSDom.enabled(tag, 'floating'));
+        console.log('SurveyAdapter: IS FLOATING?', PSDom.enabled(tag, 'floating'));
         // [STEP 1] Draw the button to be added
         const button = PSDom.draw(
           `
