@@ -148,7 +148,7 @@ import { PSDom } from './PSDom.js';
               console.log('SurveyAdapter: DISPLAYED ON FLOATING');
 
               button.style.position = 'fixed'
-              button.style.top = '-35px'
+              // button.style.top = '-35px'
               button.style.left = 'calc(50% - 50%)'
               button.style.boxShadow = '1px 5px 8px rgb(0 0 0 / 44%)'
               button.style.display = 'block'
