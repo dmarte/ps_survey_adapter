@@ -187,9 +187,9 @@ import { PSDom } from './PSDom.js';
 
         // [STEP 5] - Draw in the wrapper
         if (PSDom.enabled(tag, 'floating')) {
-          button.renderOnFloating();
+          button.renderOnFloating(SimpliTag.vplacement());
         } else {
-          button.renderOnGeneric();
+          button.renderOnGeneric(SimpliTag.vplacement());
         }
 
         // [STEP 6] - Show when ready
