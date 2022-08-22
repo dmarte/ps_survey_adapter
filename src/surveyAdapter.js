@@ -172,7 +172,7 @@ import { PSDom } from './PSDom.js';
         button.addEventListener('click', () => {
           window.open(this.getUrl(), '_blank');
         });
-console.log(button.renderOnFloating);
+console.dir(button);
         // [STEP 5] - Draw in the wrapper
         if (PSDom.enabled(tag, 'floating')) {
           button.renderOnFloating();
