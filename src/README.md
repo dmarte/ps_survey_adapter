@@ -17,7 +17,7 @@ The plugin is auto initialized when the script is included in the page. You just
   <script
    id="SurveyAdapter"
    type="module"
-   src="https://asset.padsquad.com/utils/surveyAdapter.js"
+   src="https://assets.padsquad.com/utils/surveyAdapter.js"
    data-target="https://example.com?bar={foo_id}"
   ></script>
  ```
@@ -44,7 +44,7 @@ The user will be prompted to the new URL:
 <script
   id="SurveyAdapter"
   type="module"
-  src="https://asset.padsquad.com/utils/surveyAdapter.js"
+  src="https://assets.padsquad.com/utils/surveyAdapter.js"
   data-target=""
 ></script>
 ```

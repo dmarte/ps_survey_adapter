@@ -180,7 +180,10 @@ import { PSDom } from './PSDom.js';
         // [STEP 6] - Show when ready
         // When at first load, if the creative is not visible, add a watcher event
         // to know when the creative is visible and then show the button.
-        if (!(SimpliTag?.runtime()?.creative?.mainCreativeViewed ?? false)) {
+        if (!(SimpliTag.runtime().creative.mainCreativeViewed ?? false)) {
+
+          console.log('SurveyAdapter: mainCreativeViewed',SimpliTag?.runtime()?.creative?.mainCreativeViewed)
+
           SimpliTag.listeners.add('onStandardEventTracked', function (event) {
             if (event.label === 'main creative viewed') {
               button.show();
@@ -189,6 +192,7 @@ import { PSDom } from './PSDom.js';
 
           return this;
         }
+        console.log('SurveyAdapter: Always visible')
         // If instead the creative is already visible, show the button ASAP.
         button.show();
       });
