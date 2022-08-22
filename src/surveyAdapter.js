@@ -193,9 +193,10 @@ import { PSDom } from './PSDom.js';
         // to know when the creative is visible and then show the button.
         if (!(SimpliTag.runtime().creative.mainCreativeViewed ?? false)) {
 
-          console.log('SurveyAdapter: mainCreativeViewed',SimpliTag?.runtime()?.creative?.mainCreativeViewed)
+          console.log('SurveyAdapter: mainCreativeViewed', SimpliTag?.runtime()?.creative?.mainCreativeViewed)
 
           SimpliTag.listeners.add('onStandardEventTracked', function (event) {
+            console.log('SurveyAdapter: ', event.label)
             if (event.label === 'main creative viewed') {
               button.show();
             }
