@@ -116,7 +116,12 @@ import { PSDom } from './PSDom.js';
                         </button>
                     `,
           {
-            renderOnFloating(placement) {},
+            renderOnFloating(placement) {
+              PSToolKit.insertAfter(
+                placement.wrapper.firstChild,
+                button,
+              );
+            },
             renderOnGeneric(placement) {
               PSToolKit.insertAfter(
                 placement.wrapper.firstChild,
@@ -149,7 +154,6 @@ import { PSDom } from './PSDom.js';
               button.style.display = 'block'
             },
             show() {
-
               console.log('SurveyAdapter: STARTING TO SHOW')
 
               if (PSDom.enabled(tag, 'floating')) {
@@ -193,17 +197,15 @@ import { PSDom } from './PSDom.js';
         // to know when the creative is visible and then show the button.
         if (!(SimpliTag.runtime().creative.mainCreativeViewed ?? false)) {
 
-          console.log('SurveyAdapter: mainCreativeViewed', SimpliTag?.runtime()?.creative?.mainCreativeViewed)
-
           SimpliTag.listeners.add('onStandardEventTracked', function (event) {
             const floating = PSDom.enabled(tag, 'floating')
-            console.log('SurveyAdapter: ', event.label)
             if (
               // On not floating Scrollers / Tiles
               (event.label === 'main creative viewed' && !floating) ||
               // On on floating Adhesion
               (event.label === 'creative rendered' && floating)
             ) {
+              console.log('SurveyAdapter: SIMPLI EVENT ', event.label)
               button.show();
             }
           });
