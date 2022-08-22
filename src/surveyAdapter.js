@@ -152,6 +152,7 @@ import { PSDom } from './PSDom.js';
               button.style.left = 'calc(50% - 50%)'
               button.style.boxShadow = '1px 5px 8px rgb(0 0 0 / 44%)'
               button.style.display = 'block'
+              button.style.zIndex = '1000'
             },
             show() {
               console.log('SurveyAdapter: STARTING TO SHOW')
