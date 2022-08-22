@@ -143,6 +143,9 @@ import { PSDom } from './PSDom.js';
 
             },
             show() {
+
+              console.log('SurveyAdapter: STARTING TO SHOW')
+
               if (PSDom.enabled(tag, 'floating')) {
                 this.showOnFloating(SimpliTag.vplacement());
               } else {
@@ -169,7 +172,7 @@ import { PSDom } from './PSDom.js';
         button.addEventListener('click', () => {
           window.open(this.getUrl(), '_blank');
         });
-
+console.log(button.renderOnFloating);
         // [STEP 5] - Draw in the wrapper
         if (PSDom.enabled(tag, 'floating')) {
           button.renderOnFloating();
