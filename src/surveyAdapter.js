@@ -143,12 +143,16 @@ import { PSDom } from './PSDom.js';
 
               button.style.display = 'block';
             },
-            showOnFloating(placement) {
+            /**
+             * Show the button when ads is on floating mode.
+             * @param {SimpliPlacement} _
+             */
+            showOnFloating(_) {
 
               console.log('SurveyAdapter: DISPLAYED ON FLOATING');
 
               button.style.position = 'fixed'
-              // button.style.top = '-35px'
+              button.style.top = '16px'
               button.style.left = 'calc(50% - 50%)'
               button.style.boxShadow = '1px 5px 8px rgb(0 0 0 / 44%)'
               button.style.display = 'block'
@@ -165,8 +169,6 @@ import { PSDom } from './PSDom.js';
             },
           },
         );
-
-
 
         if (!tag.dataset.target) {
           throw new TypeError(
