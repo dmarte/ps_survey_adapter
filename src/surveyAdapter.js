@@ -207,12 +207,12 @@ import { PSDom } from './PSDom.js';
             if(started) {
               return
             }
+            console.log('SurveyAdapter: FORCED TO SHOW')
             button.show();
           }, 1000)
 
           SimpliTag.listeners.add('onStandardEventTracked', function (event) {
 
-            console.log('SurveyAdapter: ', event.label.toUpperCase())
 
             const floating = PSDom.enabled(tag, 'floating')
 
@@ -222,6 +222,7 @@ import { PSDom } from './PSDom.js';
               // On on floating Adhesion
               (event.label === 'creative rendered' && floating && !started)
             ) {
+              console.log('SurveyAdapter: ', event.label.toUpperCase())
               started = true
               button.show();
             }
