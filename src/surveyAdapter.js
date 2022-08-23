@@ -199,8 +199,19 @@ import { PSDom } from './PSDom.js';
         // When at first load, if the creative is not visible, add a watcher event
         // to know when the creative is visible and then show the button.
         if (!(SimpliTag.runtime().creative.mainCreativeViewed ?? false)) {
+          // Small fix, for some reason after hard-reset and then normal reset again
+          // the events onStandardEventTracked are not triggered, well if that's the case
+          // wait 2 seconds to check if the button is shown
+          let started = false
+          setTimeout(() => {
+            if(started) {
+              return
+            }
+            button.show();
+          }, 2000)
 
           SimpliTag.listeners.add('onStandardEventTracked', function (event) {
+            console.log('SurveyAdapter: ', event.label)
             const floating = PSDom.enabled(tag, 'floating')
             if (
               // On not floating Scrollers / Tiles
@@ -208,7 +219,7 @@ import { PSDom } from './PSDom.js';
               // On on floating Adhesion
               (event.label === 'creative rendered' && floating)
             ) {
-              console.log('SurveyAdapter: SIMPLI EVENT ', event.label)
+              started = true
               button.show();
             }
           });
