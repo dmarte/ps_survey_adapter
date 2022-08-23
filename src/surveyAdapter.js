@@ -213,7 +213,7 @@ import { PSDom } from './PSDom.js';
           SimpliTag.listeners.add('onStandardEventTracked', function (event) {
 
             console.log('SurveyAdapter: ', event.label.toUpperCase())
-            
+
             const floating = PSDom.enabled(tag, 'floating')
 
             if (
